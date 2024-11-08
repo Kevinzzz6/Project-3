@@ -20,6 +20,13 @@ public:
     bool findItem( const std::string & data );
     std::string printItems( );
 	
+	size_t size() const;
+    bool get(int i, std::string& data) const;
+    std::string max() const;
+    bool allMoreThan(const std::string& data) const;
+    int strip(const std::string& data);
+    int count(const std::string& data) const;
+	
 	const List& operator =( const List& rhs );
 private:
 	ListNode * head;

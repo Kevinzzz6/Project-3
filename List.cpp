@@ -140,6 +140,104 @@ const List& List::operator =( const List& rhs ) {
 	return( *this );
 }
 
+
+size_t List::size() const {
+    size_t count = 0;
+    ListNode* current = head;
+    while (current != nullptr) {
+        count++;
+        current = current->getNext();
+    }
+    return count;
+}
+
+
+bool List::get(int i, std::string& data) const {
+    if (i < 0) return false;
+    
+    ListNode* current = head;
+    int currentIndex = 0;
+    
+    while (current != nullptr && currentIndex < i) {
+        current = current->getNext();
+        currentIndex++;
+    }
+    
+    if (current == nullptr) return false;
+    
+    data = current->getElement();
+    return true;
+}
+
+
+std::string List::max() const {
+    if (isEmpty()) return "";
+    
+    std::string maxValue = head->getElement();
+    ListNode* current = head->getNext();
+    
+    while (current != nullptr) {
+        if (current->getElement() > maxValue) {
+            maxValue = current->getElement();
+        }
+        current = current->getNext();
+    }
+    
+    return maxValue;
+}
+
+bool List::allMoreThan(const std::string& data) const {
+    ListNode* current = head;
+    
+    while (current != nullptr) {
+        if (current->getElement() <= data) {
+            return false;
+        }
+        current = current->getNext();
+    }
+    
+    return true;
+}
+
+int List::strip(const std::string& data) {
+    int count = 0;
+    ListNode* current = head;
+    ListNode* prev = nullptr;
+    
+    while (current != nullptr) {
+        if (current->getElement() == data) {
+            count++;
+            if (prev == nullptr) {
+                head = current->getNext();
+                delete current;
+                current = head;
+            } else {
+                prev->setNext(current->getNext());
+                delete current;
+                current = prev->getNext();
+            }
+        } else {
+            prev = current;
+            current = current->getNext();
+        }
+    }
+    
+    return count;
+}
+
+int List::count(const std::string& data) const {
+    int count = 0;
+    ListNode* current = head;
+    
+    while (current != nullptr) {
+        if (current->getElement() == data) {
+            count++;
+        }
+        current = current->getNext();
+    }
+    
+    return count;
+}
 }
 
 
